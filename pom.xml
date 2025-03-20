@@ -7,7 +7,7 @@
     <groupId>com.example</groupId>
     <artifactId>qwer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>war</packaging> <!-- ✅ JBoss EAP WAR 패키징 -->
 
     <properties>
         <java.version>17</java.version>
@@ -24,7 +24,14 @@
             <version>${spring-boot.version}</version>
         </dependency>
 
-        <!-- ✅ JBoss Jakarta EE API (필수) -->
+        <!-- ✅ Spring Security 추가 (403 Forbidden 방지) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <!-- ✅ JBoss Jakarta EE API -->
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-api</artifactId>
@@ -32,13 +39,21 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- ✅ JBoss EAP에서 Tomcat 제거 -->
+        <!-- ✅ JBoss EAP에서는 Tomcat 사용 안 함 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <version>${spring-boot.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- ✅ Logging 추가 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -55,7 +70,17 @@
                 </configuration>
             </plugin>
 
-            <!-- ✅ Maven WAR Plugin -->
+            <!-- ✅ Spring Boot Maven Plugin (빌드 및 실행 지원) -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            <!-- ✅ Maven WAR Plugin (JBoss 배포용) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
