@@ -16,3 +16,4 @@ RUN touch qwer.war.dodeploy
 
 # ✅ JBoss EAP를 포어그라운드 모드로 실행
 #CMD ["/opt/eap/bin/standalone.sh", "-b", "0.0.0.0"]
+CMD ["/opt/eap/bin/openshift-launch.sh"]
